@@ -132,7 +132,42 @@ public class LinkedList
         size--;
         return val;
     }
-
+    public Node rotateKNodesRight(Node head,int k)
+    {
+        if(head==null)
+            return null;// for exceptional test case of head==null
+        Node temp=head;
+        int size=0;// gotcha find the size and point tail to end for CLL
+        while(true)
+        {
+            size++;
+            if(temp.next==null)
+            {
+                temp.next=head;
+                break;
+            }
+            temp=temp.next;
+        }
+        /**
+         now we have size wrt 1 based indexing and got a circular LL
+         */
+        k=k % size;//converting k<=size wrt equivalent result
+        int l=size-k;//in CLL if we break node(l)->node(l+1) by node(l)->null and head==node(l+1)
+        temp=head;
+        int i=1;
+        while(true)
+        {
+            if(i==l)
+            {
+                head=temp.next;
+                temp.next=null;
+                break;
+            }
+            i++;
+            temp=temp.next;
+        }
+        return head;
+    }
     public static void main(String[] args) {
         LinkedList first=new LinkedList();
         first.insertLast(1);
